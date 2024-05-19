@@ -77,16 +77,14 @@ async fn get_palette(pagination: Query<PaletteQuery>) -> Result<String, AppError
         .iter()
         .map(|x| match query.theme_type {
             ThemeType::Dark => format!(
-                "{}:{}{}{}{}",
-                x.color.name,
+                "{}{}{}{}",
                 x.dark.color.to_hex(),
                 x.dark.color_container.to_hex(),
                 x.dark.on_color.to_hex(),
                 x.dark.on_color_container.to_hex()
             ),
             ThemeType::Light => format!(
-                "{}:{}{}{}{}",
-                x.color.name,
+                "{}{}{}{}",
                 x.light.color.to_hex(),
                 x.light.color_container.to_hex(),
                 x.light.on_color.to_hex(),
@@ -96,7 +94,7 @@ async fn get_palette(pagination: Query<PaletteQuery>) -> Result<String, AppError
         .collect::<Vec<_>>()
         .join("");
 
-    let final_string = format!("{};{}", base_theme_string, custom_colors_string);
+    let final_string = format!("{}{}", base_theme_string, custom_colors_string);
 
     info!("Generated theme: {:?}", final_string);
 
