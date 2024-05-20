@@ -34,23 +34,44 @@ async fn get_palette(pagination: Query<PaletteQuery>) -> Result<String, AppError
         &query.theme_type, &query.base_color
     );
 
-    // Define some fixed (but still blended) colors to make people's lives easier
+    // Define some fixed colors to make people's lives easier
     let red = CustomColor {
-        value: Argb::from_str("#FF0000")?,
+        value: Argb::from_str("FF7676")?,
         name: "red".to_string(),
         blend: true,
     };
     let green = CustomColor {
-        value: Argb::from_str("#00FF00")?,
+        value: Argb::from_str("59EB5C")?,
         name: "green".to_string(),
         blend: true,
     };
     let blue = CustomColor {
-        value: Argb::from_str("#0000FF")?,
+        value: Argb::from_str("0000FF")?,
         name: "blue".to_string(),
         blend: true,
     };
-    let custom_colors: Vec<CustomColor> = vec![red, green, blue];
+    let yellow = CustomColor {
+        value: Argb::from_str("F8F770")?,
+        name: "yellow".to_string(),
+        blend: false,
+    };
+    let purple = CustomColor {
+        value: Argb::from_str("BA64F2")?,
+        name: "purple".to_string(),
+        blend: true,
+    };
+    let cyan = CustomColor {
+        value: Argb::from_str("61D1FA")?,
+        name: "cyan".to_string(),
+        blend: true,
+    };
+    let orange = CustomColor {
+        value: Argb::from_str("E69E50")?,
+        name: "orange".to_string(),
+        blend: false,
+    };
+
+    let custom_colors: Vec<CustomColor> = vec![red, green, blue, yellow, purple, cyan, orange];
     let theme = ThemeBuilder::with_source(Argb::from_str(&query.base_color)?)
         .custom_colors(custom_colors)
         .build();
